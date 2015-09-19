@@ -50,6 +50,8 @@ university = ['金沢医科大学', '石川県立大学', '金沢工業大学', 
     }
   )
 
+  user = User.find(user.id)
+
   user.preference_faces.build(face_type_id: FaceType.find_by(kind: preference_type.sample).id)
 
   user.educational_backgrounds.build({

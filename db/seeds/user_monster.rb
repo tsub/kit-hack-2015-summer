@@ -23,7 +23,7 @@ avatar = ['http://www.sakimura.org/wp-content/uploads/2014/08/myna-all-01.png',
   birthday = Random.rand(from .. to)
   user = User.create(
     {
-      my_number: (i + 80).to_s,
+      my_number: (i + 81).to_s,
       name: name[i],
       birthdate: birthday,
       address: Gimei.address.kanji,
@@ -33,6 +33,8 @@ avatar = ['http://www.sakimura.org/wp-content/uploads/2014/08/myna-all-01.png',
       face_type_id: face_type_id
     }
   )
+
+  user = User.find(user.id)
 
   user.preference_faces.build(face_type_id: FaceType.find_by(kind: preference_type).id)
 
