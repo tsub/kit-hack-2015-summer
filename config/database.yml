@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: kithack2015-summer-api_production
-  username: kithack2015-summer-api
-  password: <%= ENV['KITHACK2015-SUMMER-API_DATABASE_PASSWORD'] %>
+  username: root
+  password:
