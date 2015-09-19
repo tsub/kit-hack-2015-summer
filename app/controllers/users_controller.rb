@@ -19,8 +19,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     respond_to do |format|
-      my_number = params[:user][:my_number]
-      @user = User.new({ email: my_number, password: my_number, password_confirmation: my_number }.merge(user_params))
+      @user = User.new(user_params)
 
       if @user.save
         format.json { render nothing: true, status: :created }

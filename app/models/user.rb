@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  after_initialize :set_my_number
+
   belongs_to :face_type
   has_many :api_keys, dependent: :destroy
   has_many :work_experiences, dependent: :destroy
@@ -48,5 +50,11 @@ class User < ActiveRecord::Base
 
   def api_key
     @api_key ||= ApiKey.find_by_user_id(self.id)
+  end
+
+  def set_my_number
+    self.email = self.my_number
+    self.password = self.my_number
+    self.password_confirmation = self.my_number
   end
 end
