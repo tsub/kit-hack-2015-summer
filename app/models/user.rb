@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :medical_histories, dependent: :destroy
   has_many :crime_histories, dependent: :destroy
   has_many :preference_faces, dependent: :destroy
+  has_many :face_types, through: :preference_faces, dependent: :destroy
+
 
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
