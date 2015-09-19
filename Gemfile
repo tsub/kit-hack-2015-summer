@@ -50,3 +50,4 @@ end
 
 gem 'sorcery'
 gem 'unicorn'
+gem 'gimei'

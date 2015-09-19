@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
 
   belongs_to :face_type
   has_many :api_keys, dependent: :destroy
-  has_many :work_experience, dependent: :destroy
-  has_many :educational_background, dependent: :destroy
-  has_many :medical_history, dependent: :destroy
-  has_many :crime_history, dependent: :destroy
+  has_many :work_experiences, dependent: :destroy
+  has_many :educational_backgrounds, dependent: :destroy
+  has_many :medical_histories, dependent: :destroy
+  has_many :crime_histories, dependent: :destroy
   has_many :preference_faces, dependent: :destroy
 
   validates :password, confirmation: true
