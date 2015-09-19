@@ -1,6 +1,6 @@
 class RecommendedUsersController < ApplicationController
   def index
-    current_user
+    token_check
     preference_types =[]
     @last_educational_background = []
     @last_work_experience = []

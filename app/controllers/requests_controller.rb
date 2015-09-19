@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   def index
-    current_user
+    token_check
     @receivers = []
     @senders = []
     @sender_statuses = @current_user.senders.order('updated_at DESC')
