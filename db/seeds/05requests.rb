@@ -10,13 +10,9 @@ message = ['プロフィールを見て、大変興味を持ちました。お�
 user_count = User.all.count
 
 1.upto(user_count) do |i|
-  4.times do
-    receiver = rand(1..user_count)
-
-    while receiver == i
-      receiver = rand(1..user_count)
-    end
-
+  min = User.find(i).gender == 0 ? 40 : 1
+  3.times do
+    receiver = rand(min..min + 40)
     Request.create({sender_id: i, receiver_id: receiver, status: rand(0..2), message: message.sample})
   end
 end
