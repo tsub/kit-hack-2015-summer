@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :preference_faces, dependent: :destroy
   has_many :face_types, through: :preference_faces, dependent: :destroy
 
+  accepts_nested_attributes_for :work_experiences, :educational_backgrounds, :medical_histories, :crime_histories, :preference_faces, reject_if: :all_blank
 
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
