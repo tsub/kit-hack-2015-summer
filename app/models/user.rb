@@ -1,7 +1,13 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  belongs_to :face_type
   has_many :api_keys, dependent: :destroy
+  has_many :work_experience, dependent: :destroy
+  has_many :educational_background, dependent: :destroy
+  has_many :medical_history, dependent: :destroy
+  has_many :crime_history, dependent: :destroy
+  has_many :preference_faces, dependent: :destroy
 
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
