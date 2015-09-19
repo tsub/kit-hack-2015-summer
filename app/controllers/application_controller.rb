@@ -17,4 +17,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def current_user
+    token = ApiKey.find_by(access_token: params[:access_token])
+
+    if token && !token.expired?
+      @current_user = User.find(token.user_id)
+    else
+      false
+    end
+  end
 end

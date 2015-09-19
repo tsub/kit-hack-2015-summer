@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   def self.login?(access_token)
     api_key = ApiKey.find_by_access_token(access_token)
-    return false if !api_key || !api_key.before_expired? || !api_key.active
+    return false if !api_key || api_key.expired? || !api_key.active
     return !self.find(api_key.user_id).nil?
   end
 
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
         api_key.save
       end
 
-      if !api_key.before_expired?
+      if api_key.expired?
         api_key.set_expiration
         api_key.save
       end
