@@ -24,7 +24,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    access_token = request.headers[:HTTP_ACCESS_TOKEN]
+    access_token = params[:access_token]
     api_key = ApiKey.find_by_access_token(access_token)
     if api_key
       user = User.find(api_key.user_id)

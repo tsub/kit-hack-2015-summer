@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
 
   def require_valid_token
-    access_token = request.headers[:HTTP_ACCESS_TOKEN]
+    access_token = params[:access_token]
 
     if !User.login?(access_token)
       respond_to do |format|
