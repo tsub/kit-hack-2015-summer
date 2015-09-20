@@ -20,8 +20,11 @@ class RequestsController < ApplicationController
   end
 
   def create
+    token_check
     respond_to do |format|
-      @request = Request.new(request_params)
+      create_params = params.require(:request).permit(:receiver_id, :message, :status)
+      create_params[:request][:sender_id] = @current_user.id
+      @request = Request.new(create_params)
 
       if @request.save
         format.json { render nothing: true, status: :created }
@@ -33,7 +36,10 @@ class RequestsController < ApplicationController
   end
 
   def update
+    token_check
     respond_to do |format|
+      create_params = params.require(:request).permit(:sender_id, :message, :status)
+      create_params[:request][:receiver_id] = @current_user.id
       if @request.update(request_params)
         format.json { render json: @request }
       else
@@ -43,15 +49,10 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-    @request.destroy
+    token_check
+    @current_user.senders.where(receiver_id: params[:receiver_id]).first.destroy
     respond_to do |format|
       format.json { head :no_content }
     end
-  end
-
-  private
-
-  def request_params
-    params.require(:request).permit(:sender_id, :receiver_id, :message, :status)
   end
 end
