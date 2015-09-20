@@ -9,9 +9,13 @@ class UsersController < ApplicationController
 
   # GET /users/1.json
   def show
-    if !@user
+    if @user
       respond_to do |format|
-        format.json { render nothing: true, status: :not_found }
+        format.json { render json: @user }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { status: :not_found } }
       end
     end
   end
@@ -22,10 +26,10 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
 
       if @user.save
-        format.json { render nothing: true, status: :created }
+        format.json { render json: { status: :created } }
       else
         logger.debug @user.errors.full_messages
-        format.json { render nothing: true, status: :bad_request }
+        format.json { render json: { status: :bad_request } }
       end
     end
   end
@@ -53,7 +57,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(my_number: params[:my_number])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
