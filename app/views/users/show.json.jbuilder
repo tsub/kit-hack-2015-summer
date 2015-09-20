@@ -1,1 +1,1 @@
-json.extract! user, :id, :name, :address, :gender, :birthdate, :hobby, :avatar, :face_type, :created_at, :updated_at
+json.extract! @user, :id, :name, :address, :gender, :birthdate, :hobby, :avatar, :face_type, :created_at, :updated_at, :work_experiences, :crime_histories, :preference_faces, :educational_backgrounds, :medical_histories

@@ -9,11 +9,7 @@ class UsersController < ApplicationController
 
   # GET /users/1.json
   def show
-    if @user
-      respond_to do |format|
-        format.json { render json: @user }
-      end
-    else
+    if !@user
       respond_to do |format|
         format.json { render json: { status: :not_found } }
       end
