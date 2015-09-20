@@ -1,3 +1,3 @@
 json.array!(@face_selections) do |face|
-  json.extract! face, :file_name, :face_type_id
+  json.extract! face, :avatar, :face_type_id
 end
