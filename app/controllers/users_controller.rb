@@ -22,7 +22,10 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
 
       if @user.save
-        format.json { render json: { status: :created } }
+        api_key = @user.activate
+        @access_token = api_key.access_token
+
+        format.json { render json: { access_token: @access_token, status: :created } }
       else
         logger.debug @user.errors.full_messages
         format.json { render json: { status: :bad_request } }
