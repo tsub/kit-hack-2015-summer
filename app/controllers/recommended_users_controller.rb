@@ -9,7 +9,7 @@ class RecommendedUsersController < ApplicationController
       preference_types.push(preference_type)
     end
 
-    @recommended_users = User.includes(:face_type).where(face_types: { id: preference_types })
+    @recommended_users = User.includes(:face_type).where(gender: @current_user.gender ^ 1).where(face_types: { id: preference_types })
     @recommended_users = @recommended_users.order('rand()').limit(3)
 
     @recommended_users.each do |user|
