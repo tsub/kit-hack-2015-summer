@@ -22,10 +22,12 @@ class RequestsController < ApplicationController
   def create
     token_check
     respond_to do |format|
-      create_params = params.require(:request).permit(:receiver_id, :message)
-      create_params[:request][:sender_id] = @current_user.id
-      create_params[:request][:status] = 0
-      @request = Request.new(create_params)
+      @request = Request.new({
+          sender_id: @current_user.id,
+          receiver_id: params[:receiver_id],
+          message: params[:message],
+          status: 0
+        })
 
       if @request.save
         format.json { render nothing: true, status: :created }
@@ -38,10 +40,9 @@ class RequestsController < ApplicationController
 
   def update
     token_check
+    @request = @current_user.receivers.find_by(sender_id: params[:sender_id])
     respond_to do |format|
-      create_params = params.require(:request).permit(:sender_id, :message, :status)
-      create_params[:request][:receiver_id] = @current_user.id
-      if @request.update(request_params)
+      if @request.update({ status: params[:status] })
         format.json { render json: @request }
       else
         format.json { render json: @request.errors, status: :unprocessable_entity }
@@ -51,7 +52,7 @@ class RequestsController < ApplicationController
 
   def destroy
     token_check
-    @current_user.senders.where(receiver_id: params[:receiver_id]).first.destroy
+    @current_user.senders.find_by(receiver_id: params[:receiver_id]).destroy
     respond_to do |format|
       format.json { head :no_content }
     end
