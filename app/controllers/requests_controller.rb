@@ -22,8 +22,9 @@ class RequestsController < ApplicationController
   def create
     token_check
     respond_to do |format|
-      create_params = params.require(:request).permit(:receiver_id, :message, :status)
+      create_params = params.require(:request).permit(:receiver_id, :message)
       create_params[:request][:sender_id] = @current_user.id
+      create_params[:request][:status] = 0
       @request = Request.new(create_params)
 
       if @request.save

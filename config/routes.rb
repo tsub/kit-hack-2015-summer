@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   resources :user_sessions, only: [:create, :destroy]
   resources :users
   resources :recommended_users, only: :index
-  resource :requests, only: [:index, :create, :update, :destroy]
+  resource :requests, only: [:create, :update, :destroy]
+  get '/requests' => 'requests#index'
   get '/face_selections/:id' => 'face_selections#index'
    
   # The priority is based upon order of creation: first created -> highest priority.
