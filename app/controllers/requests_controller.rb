@@ -30,10 +30,10 @@ class RequestsController < ApplicationController
         })
 
       if @request.save
-        format.json { render nothing: true, status: :created }
+        format.json { render json: { status: :created } }
       else
         logger.debug @request.errors.full_messages
-        format.json { render nothing: true, status: :bad_request }
+        format.json { render json: { status: :bad_request } }
       end
     end
   end
